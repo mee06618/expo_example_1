@@ -1,16 +1,52 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { Text, TouchableRipple } from 'react-native-paper';
-import tw from 'tailwind-react-native-classnames';
-const abc = () => (
-    <View style={tw`h-full `}>
-  <TouchableRipple style={tw`w-12 h-12 mr-5 ml-auto mb-48 mt-auto rounded-full bg-red-300`}
-    onPress={() => console.log('Pressed')}
-    rippleColor="rgba(0, 0, 0, .32)"
-  >
-    <Text></Text>
-  </TouchableRipple>
-  </View>
-);
 
-export default abc;
+
+import * as React from 'react';
+import { FAB, Portal, Provider } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+const Temp = () => {
+  const [state, setState] = React.useState({ open: false });
+
+  const onStateChange = ({ open }) => setState({ open });
+
+  const { open } = state;
+  
+  const navigation = useNavigation();
+
+  return (
+    <Provider>
+      <Portal>
+        <FAB.Group
+          open={open}
+          icon={open ? 'calendar-today' : 'plus'}
+          actions={[
+            { icon: 'plus', onPress: () => console.log('Pressed add') },
+            {
+              icon: 'star',
+              label: 'write',
+              onPress: () =>navigation.navigate('Write'),
+            },
+            {
+              icon: 'email',
+              label: 'Email',
+              onPress: () => console.log('Pressed email'),
+            },
+            {
+              icon: 'bell',
+              label: 'Remind',
+              onPress: () => console.log('Pressed notifications'),
+              small: false,
+            },
+          ]}
+          onStateChange={onStateChange}
+          onPress={() => {
+            if (open) {
+              // do something if the speed dial is open
+            }
+          }}
+        />
+      </Portal>
+    </Provider>
+  );
+};
+
+export default Temp;
