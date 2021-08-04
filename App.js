@@ -2,10 +2,11 @@ import React from "react";
 import { View } from "react-native";
 import Temp from "./Temp";
 import Write from "./write.js";
-import List from "./List.js";
+import List from "./List";
 import tw from "tailwind-react-native-classnames";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { RecoilRoot } from "recoil";
 
 function HomeScreen({ navigation }) {
   return (
@@ -19,7 +20,9 @@ function HomeScreen({ navigation }) {
 function WriteScreen() {
   return (
     <View style={tw`h-full `}>
-      <Write />
+      <RecoilRoot>
+        <Write />
+      </RecoilRoot>
       <Temp style={tw`w-12 h-12 mr-5 ml-auto mb-48 mt-auto`} />
     </View>
   );

@@ -1,27 +1,16 @@
-import React from "react";
-import { View } from "react-native";
-const List = () => {
-  const [newTodoTitle, setNewTodoTitle] = React.useState("");
-  const [list, setList] = React.useState([1, 2, 3]);
+import React, { Suspense, useState } from "react";
+import { RecoilRoot } from "recoil";
+import Output from "./output";
 
-  function addTodo() {
-    setList([...list, newTodoTitle]);
-    setNewTodoTitle("");
-  }
-
+function Write() {
   return (
-    <View>
-      <div>
-        <div>
-          <input
-            value={newTodoTitle}
-            onChange={(e) => setNewTodoTitle(e.target.value)}
-          />
-          <button onClick={() => addTodo()}>추가</button>
-        </div>
-      </div>
-    </View>
+    <div>
+      <RecoilRoot>
+        <Suspense fallback={<span>Loading...</span>}>
+          <Output />
+        </Suspense>
+      </RecoilRoot>
+    </div>
   );
-};
-
-export default List;
+}
+export default Write;
